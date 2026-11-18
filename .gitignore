@@ -4,3 +4,10 @@ __pycache__/
 node_modules/
 dist/
 evidencias/
+
+# Arquivos e diretórios locais de ferramentas
+.vscode/
+.idea/
+*.log
+coverage.xml
+.coverage

@@ -57,6 +57,35 @@ services:
       retries: 10
       start_period: 10s
 
+  mongo-express:
+    image: docker.io/library/mongo-express:1.0.2-20
+    container_name: jurisdocs-mongo-express
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      ME_CONFIG_MONGODB_URL: "mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb:27017/?authSource=admin"
+      ME_CONFIG_BASICAUTH: "false"
+    ports:
+      - "127.0.0.1:8082:8081"
+    networks:
+      - jurisdocs-net
+
+  redis-commander:
+    image: docker.io/rediscommander/redis-commander:latest
+    container_name: jurisdocs-redis-commander
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      REDIS_HOSTS: "jurisdocs:redis:6379:0:${REDIS_PASSWORD}"
+    ports:
+      - "127.0.0.1:8083:8081"
+    networks:
+      - jurisdocs-net
+
   api:
     build:
       context: ./api

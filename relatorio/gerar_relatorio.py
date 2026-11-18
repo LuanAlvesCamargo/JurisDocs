@@ -147,13 +147,29 @@ def page(doc): doc.add_page_break()
 def main():
     architecture = ASSETS / "arquitetura-jurisdocs.png"; terminal = ASSETS / "validacao-final.png"
     create_architecture_image(architecture); create_terminal_image(terminal)
-    ui = ROOT / "evidencias" / "capturas" / "01-interface-jurisdocs.png"
+    ui = ROOT / "evidencias" / "capturas" / "02-interface-consulta-documental.png"
+    crud = ROOT / "evidencias" / "capturas" / "03-validacao-crud-api.png"
+    mongo = ROOT / "evidencias" / "capturas" / "04-mongodb-registros.png"
+    redis = ROOT / "evidencias" / "capturas" / "05-redis-cache.png"
     infra = ROOT / "evidencias" / "infraestrutura" / "02-containers-e-healthcheck.png"
     volumes = ROOT / "evidencias" / "infraestrutura" / "03-volumes-e-rede.png"
+    demo_captures = [
+        (ROOT / "evidencias" / "capturas" / "09-redis-estrutura-chave.png", "Figura 9 – Redis Commander com a estrutura de chaves do JurisDocs. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "10-redis-informacoes.png", "Figura 10 – Informações da instância Redis 7.4.12 acessada pelo Redis Commander. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "11-mongo-banco-colecao.png", "Figura 11 – Banco jurisdocs e coleção documentos no Mongo Express. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "12-mongo-documentos.png", "Figura 12 – Registros persistidos na coleção documentos. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "13-mongo-documentos-continuacao.png", "Figura 13 – Continuação da listagem de documentos persistidos no MongoDB. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "14-mongo-estatisticas.png", "Figura 14 – Estatísticas da coleção documentos no Mongo Express. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "15-mongo-indices.png", "Figura 15 – Índices da coleção documentos, incluindo unicidade, texto e classificação. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "16-mongo-indices-detalhe.png", "Figura 16 – Detalhamento dos índices implementados no MongoDB. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "17-interface-principal.png", "Figura 17 – Tela principal do JurisDocs com indicadores, filtros e resultados. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "18-interface-cadastro.png", "Figura 18 – Formulário de cadastro de documento no JurisDocs. Fonte: captura local da demonstração."),
+        (ROOT / "evidencias" / "capturas" / "19-interface-edicao.png", "Figura 19 – Formulário de edição de documento no JurisDocs. Fonte: captura local da demonstração."),
+    ]
     doc = Document(); setup_styles(doc)
 
     # Capa
-    for text, size, space in [("4º ANO CIÊNCIA DA COMPUTAÇÃO", 20, 40), ("Faculdades Integradas de Bauru", 17, 54), ("Banco de Dados NoSQL", 14, 65), ("JURISDOCS GERENCIAMENTO DE DOCUMENTOS FICTÍCIOS COM MONGODB REDIS FLASK REACT E PODMAN", 16, 65), ("Luan Alves Camargo Marques", 14, 0)]:
+    for text, size, space in [("4º ANO CIÊNCIA DA COMPUTAÇÃO", 20, 40), ("Faculdades Integradas de Bauru", 17, 54), ("Banco de Dados NoSQL", 14, 65), ("JURISDOCS GERENCIAMENTO DE DOCUMENTOS FICTÍCIOS COM MONGODB REDIS FLASK REACT E PODMAN", 16, 65), ("Luan Alves Camargo Marques", 14, 8), ("Matheus Andrade Danno", 14, 0)]:
         para = doc.add_paragraph(); para.alignment = WD_ALIGN_PARAGRAPH.CENTER; para.paragraph_format.space_after = Pt(space)
         run = para.add_run(text); run.bold = True; run.font.name = "Times New Roman"; run.font.size = Pt(size)
     for _ in range(5): doc.add_paragraph()
@@ -161,7 +177,8 @@ def main():
     page(doc)
 
     # Folha rosto
-    para = doc.add_paragraph(); para.alignment = WD_ALIGN_PARAGRAPH.CENTER; para.paragraph_format.space_after = Pt(90); para.add_run("LUAN ALVES CAMARGO MARQUES").bold = True
+    para = doc.add_paragraph(); para.alignment = WD_ALIGN_PARAGRAPH.CENTER; para.paragraph_format.space_after = Pt(8); para.add_run("LUAN ALVES CAMARGO MARQUES").bold = True
+    para = doc.add_paragraph(); para.alignment = WD_ALIGN_PARAGRAPH.CENTER; para.paragraph_format.space_after = Pt(90); para.add_run("MATHEUS ANDRADE DANNO").bold = True
     para = doc.add_paragraph(); para.alignment = WD_ALIGN_PARAGRAPH.CENTER; para.paragraph_format.space_after = Pt(70); para.add_run("JURISDOCS GERENCIAMENTO DE DOCUMENTOS FICTÍCIOS COM MONGODB REDIS FLASK REACT E PODMAN").bold = True
     para = doc.add_paragraph("Relatório técnico científico apresentado ao curso de Ciência da Computação das Faculdades Integradas de Bauru, na disciplina de Banco de Dados NoSQL, como registro do desenvolvimento de uma aplicação acadêmica para estudo de bancos orientados a documentos e cache em memória.")
     para.paragraph_format.left_indent = Cm(7); para.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -176,7 +193,7 @@ def main():
     page(doc)
 
     h(doc, "SUMÁRIO", 1)
-    for item in ["1 INTRODUÇÃO", "2 FUNDAMENTAÇÃO TÉCNICA", "3 METODOLOGIA E ARQUITETURA", "4 IMPLEMENTAÇÃO DA SOLUÇÃO", "5 RESULTADOS E VALIDAÇÃO", "6 LIMITAÇÕES E TRABALHOS FUTUROS", "7 CONCLUSÃO", "REFERÊNCIAS", "APÊNDICE A COMANDOS PRINCIPAIS"]:
+    for item in ["1 INTRODUÇÃO", "2 FUNDAMENTAÇÃO TÉCNICA", "3 METODOLOGIA E ARQUITETURA", "4 IMPLEMENTAÇÃO DA SOLUÇÃO", "5 RESULTADOS E VALIDAÇÃO", "6 LIMITAÇÕES E TRABALHOS FUTUROS", "7 CONCLUSÃO", "REFERÊNCIAS", "APÊNDICE A COMANDOS PRINCIPAIS", "APÊNDICE B CAPTURAS DA DEMONSTRAÇÃO"]:
         para = doc.add_paragraph(item); para.paragraph_format.left_indent = Cm(1.2); para.paragraph_format.space_after = Pt(10)
     page(doc)
 
@@ -194,6 +211,7 @@ def main():
     h(doc, "3 METODOLOGIA E ARQUITETURA", 1)
     p(doc, "A pesquisa aplicada foi organizada como laboratório controlado em Fedora Linux. A execução ocorreu com Podman Compose e quatro serviços isolados em uma rede bridge privada: MongoDB, Redis, API e frontend. As portas dos bancos foram vinculadas a loopback, evitando exposição na rede local. A preparação consistiu em subir a infraestrutura, criar usuário de aplicação com escopo restrito, criar índices, inserir massa fictícia e construir os serviços web.")
     figure(doc, architecture, "Figura 1 – Arquitetura de execução do JurisDocs. Fonte: elaboração própria.")
+    page(doc)
     h(doc, "3.1 Fluxo de dados", 2)
     p(doc, "O navegador acessa o frontend em Nginx. Requisições iniciadas com /api são encaminhadas internamente à API Flask. Para leitura, a API verifica Redis; se a chave não existir, consulta MongoDB e armazena o JSON com TTL de sessenta segundos. Para escrita, MongoDB é atualizado primeiro e as chaves de documento e de listagem são invalidadas. A resposta HTTP explicita a condição da cache no cabeçalho X-Cache.")
     table(doc, ["Elemento", "Função", "Persistência"], [["MongoDB 8.0", "coleção documentos, índices e busca", "volume mongodb-data"], ["Redis 7.4", "cache-aside com AOF", "volume redis-data"], ["Flask + Gunicorn", "API REST e regras de negócio", "imagem API"], ["React + Nginx", "interface e proxy reverso", "imagem frontend"]], [4, 7, 3])
@@ -202,24 +220,29 @@ def main():
     h(doc, "4 IMPLEMENTAÇÃO DA SOLUÇÃO", 1)
     h(doc, "4.1 Modelagem e preparação do MongoDB", 2)
     p(doc, "A coleção documentos é inicializada pelo script scripts/02_configurar_bancos.sh. Foram implementados os índices uq_documentos_numero, que impede números repetidos; idx_documentos_texto, que oferece busca por título, descrição e etiquetas; e idx_tipo_status_data, utilizado nos filtros de classificação e ordenação. Cinco registros de demonstração são inseridos somente quando inexistentes, tornando a inicialização idempotente.")
+    figure(doc, mongo, "Figura 2 – Registros fictícios persistidos na coleção documentos do MongoDB. Fonte: consulta local executada no contêiner.")
+    page(doc)
     h(doc, "4.2 API e CRUD", 2)
     p(doc, "A API possui GET /api/health, GET e POST /api/documentos e GET, PUT e DELETE em /api/documentos/<id>. Entradas inválidas recebem HTTP 400, identificadores inexistentes recebem HTTP 404 e tentativa de número duplicado recebe HTTP 409. A resposta de listagem inclui itens e paginação; filtros por texto, tipo, status e etiqueta são interpretados pela API antes da consulta ao MongoDB.")
-    figure(doc, infra, "Figura 2 – Serviços MongoDB, Redis, API e frontend em execução com healthchecks. Fonte: evidência local do projeto.")
+    figure(doc, crud, "Figura 3 – Ciclo CRUD real da API: criação, leitura, atualização, exclusão e confirmação de ausência. Fonte: validação local.")
+    figure(doc, infra, "Figura 4 – Serviços MongoDB, Redis, API e frontend em execução com healthchecks. Fonte: evidência local do projeto.")
     page(doc)
 
     h(doc, "4.3 Cache e tolerância a falhas", 2)
     p(doc, "As chaves de documento usam o prefixo jurisdocs:documento e as listagens usam jurisdocs:listagem:v1 com um resumo hash dos parâmetros. O TTL estabelecido é de sessenta segundos. Uma leitura sem chave responde MISS e popula Redis; leitura repetida responde HIT. Após POST, PUT ou DELETE, a aplicação remove as chaves relevantes usando SCAN, evitando o comando KEYS. Caso o Redis não responda, a API consulta MongoDB e sinaliza BYPASS, preservando a funcionalidade de leitura.")
-    figure(doc, terminal, "Figura 3 – Resultado do teste automatizado e healthchecks. Fonte: evidência local do projeto.")
+    figure(doc, terminal, "Figura 5 – Resultado do teste automatizado e healthchecks. Fonte: evidência local do projeto.")
+    figure(doc, redis, "Figura 6 – Chave de cache de listagem presente no Redis após consulta pela API. Fonte: consulta local executada no contêiner.")
+    page(doc)
     h(doc, "4.4 Interface web", 2)
-    p(doc, "A interface foi implementada com React e compilada por Vite em uma imagem Node. A imagem final usa Nginx para servir os arquivos estáticos e encaminhar /api para o serviço Flask, sem expor a comunicação interna ao navegador. A tela apresenta indicadores de quantidade, filtros, cartões dos documentos, formulário lateral para inclusão ou edição, confirmação de exclusão e indicação do último estado de cache recebido.")
-    figure(doc, ui, "Figura 4 – Interface web do JurisDocs com catálogo de registros fictícios. Fonte: captura local do projeto.", 15.5)
+    p(doc, "A interface foi implementada com React e compilada por Vite em uma imagem Node. A imagem final usa Nginx para servir os arquivos estáticos e encaminhar /api para o serviço Flask, sem expor a comunicação interna ao navegador. A tela foi organizada como uma estação de consulta documental: navegação lateral, resumo de contagens reais, filtros explícitos, tabela de resultados, formulário lateral para inclusão ou edição, confirmação de exclusão e indicação do último estado de cache recebido.")
+    figure(doc, ui, "Figura 7 – Interface web do JurisDocs em funcionamento com filtros e tabela de documentos. Fonte: captura local do projeto.", 15.5)
     page(doc)
 
     h(doc, "5 RESULTADOS E VALIDAÇÃO", 1)
     p(doc, "A validação final foi composta por healthchecks dos quatro contêineres, chamada ao endpoint de saúde, inspeção da interface, teste automatizado e simulação de indisponibilidade do cache. Os resultados confirmaram que MongoDB, Redis, API e frontend ficaram no estado healthy e que a página local respondeu HTTP 200.")
     table(doc, ["Cenário", "Procedimento", "Resultado observado"], [["Saúde", "GET /api/health", "api, mongodb e redis com estado ok"], ["CRUD", "Pytest no contêiner API", "criação, leitura, atualização e exclusão aprovadas"], ["Cache", "duas leituras consecutivas", "MISS na primeira e HIT na segunda"], ["Invalidação", "PUT seguido de leitura", "nova leitura com MISS"], ["Fallback", "Redis temporariamente parado", "GET preservado com X-Cache: BYPASS"], ["Persistência", "volumes nomeados e reinício", "massa fictícia preservada"]], [3.1, 6.2, 4.7])
     p(doc, "O teste automatizado retornou 1 passed. Além disso, o script de fallback parou apenas Redis, verificou explicitamente o cabeçalho X-Cache: BYPASS e restaurou o serviço até o estado healthy. Dessa forma, a evidência não se limita ao carregamento da interface: inclui comportamento observável da API sob uma falha controlada.")
-    figure(doc, volumes, "Figura 5 – Volumes persistentes e rede isolada definidos pelo Compose. Fonte: evidência local do projeto.")
+    figure(doc, volumes, "Figura 8 – Volumes persistentes e rede isolada definidos pelo Compose. Fonte: evidência local do projeto.")
     page(doc)
 
     h(doc, "6 LIMITAÇÕES E TRABALHOS FUTUROS", 1)
@@ -235,6 +258,13 @@ def main():
     h(doc, "APÊNDICE A COMANDOS PRINCIPAIS", 1)
     for command in ["./scripts/01_subir_infraestrutura.sh", "./scripts/02_configurar_bancos.sh", "podman compose -p jurisdocs up -d --build", "podman compose -p jurisdocs ps", "podman compose -p jurisdocs exec -T api python -m pytest -q", "./scripts/03_validar_fallback_redis.sh"]:
         para = doc.add_paragraph(); para.paragraph_format.left_indent = Cm(1); run = para.add_run(command); run.font.name = "Courier New"; run.font.size = Pt(10)
+    page(doc)
+    h(doc, "APÊNDICE B CAPTURAS DA DEMONSTRAÇÃO", 1)
+    p(doc, "As figuras a seguir registram as interfaces gráficas utilizadas durante a demonstração da aplicação. Elas complementam os testes automatizados e mostram os dados persistidos, os índices, o estado da instância de cache e as operações disponíveis na interface web.")
+    for index, (path, caption) in enumerate(demo_captures):
+        if index and index % 2 == 0:
+            page(doc)
+        figure(doc, path, caption, 15.5)
     doc.save(OUT)
     print(OUT)
 
